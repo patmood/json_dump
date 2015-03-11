@@ -1,6 +1,6 @@
 var express = require('express')
   , app = express()
-  , db = require('monk')('localhost:27017/nodetest1')
+  , db = require('monk')(process.env.MONGO_URI)
   , bodyParser = require('body-parser')
   , dotenv = require('dotenv').load()
 
@@ -34,8 +34,7 @@ app.get('/api/store',function(req,res){
 app.get('/api/store/delete', function(req, res) {
   // Delete records with a GET request? I'm going to /api/hell...
   db.get('store').drop(function(err){
-    if (err) throw err
-    res.send('everything deleted')
+    res.send(err || 'everything deleted')
   })
 })
 
