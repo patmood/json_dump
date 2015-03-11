@@ -2,6 +2,7 @@ var express = require('express')
   , app = express()
   , db = require('monk')('localhost:27017/nodetest1')
   , bodyParser = require('body-parser')
+  , dotenv = require('dotenv').load()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
@@ -12,7 +13,7 @@ app.get('/', function(req, res) {
 })
 
 app.post('/api/store', function(req, res) {
-  if (req.body.api_key === 'churrbowl') {
+  if (req.body.api_key === process.env.API_KEY) {
     delete req.body.api_key
     var store = db.get('store')
     store.insert(req.body)
