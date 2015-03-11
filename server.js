@@ -32,6 +32,7 @@ app.get('/store',function(req,res){
 })
 
 // START SERVER
-app.listen(1337, function() {
-  console.log('Server running on port 1337')
+app.set('port', process.env.PORT || 1337)
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port)
 })
