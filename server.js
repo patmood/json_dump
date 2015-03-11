@@ -24,15 +24,23 @@ app.post('/api/store', function(req, res) {
 
 })
 
-app.get('/store',function(req,res){
-  var collection = db.get('store');
-  collection.find({},{limit:20},function(e,docs){
+app.get('/api/store',function(req,res){
+  var store = db.get('store')
+  store.find({},{limit:20},function(e,docs){
     res.json(docs);
+  })
+})
+
+app.get('/api/store/delete', function(req, res) {
+  // Delete records with a GET request? I'm going to /api/hell...
+  db.get('store').drop(function(err){
+    if (err) throw err
+    res.send('everything deleted')
   })
 })
 
 // START SERVER
 app.set('port', process.env.PORT || 1337)
 var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port)
+  console.log('Express server listening on port ' + server.address().port)
 })
