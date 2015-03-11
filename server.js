@@ -1,8 +1,9 @@
 var express = require('express')
   , app = express()
-  , db = require('monk')(process.env.MONGO_URI)
-  , bodyParser = require('body-parser')
   , dotenv = require('dotenv').load()
+  , monk = require('monk')
+  , db = monk(process.env.MONGOLAB_URI)
+  , bodyParser = require('body-parser')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())
